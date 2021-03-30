@@ -1,13 +1,13 @@
 /* eslint-disable import/no-dynamic-require, no-console */
 const chalk = require('chalk');
 const path = require('path');
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 const simpleGit = require('simple-git/promise');
 
 const cwd = process.cwd();
 const git = simpleGit(cwd);
 
-const { version } = require(path.resolve(cwd, 'package.json'));
+// const { version } = require(path.resolve(cwd, 'package.json'));
 
 function exitProcess(code = 1) {
   console.log(''); // Keep an empty line here to make looks good~
