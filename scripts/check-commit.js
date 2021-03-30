@@ -1,6 +1,6 @@
 /* eslint-disable import/no-dynamic-require, no-console */
 const chalk = require('chalk');
-const path = require('path');
+// const path = require('path');
 // const fetch = require('node-fetch');
 const simpleGit = require('simple-git/promise');
 
