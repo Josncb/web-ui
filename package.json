@@ -94,7 +94,6 @@
     "test-image": "npm run compile:less && docker-compose run tests",
     "version": "node ./scripts/generate-version",
     "install-react-16": "npm i --no-save react@16 react-dom@16 react-test-renderer@16 enzyme-adapter-react-16",
-    "postversion": "git push --follow-tags",
     "argos": "argos upload imageSnapshots"
   },
   "husky": {
