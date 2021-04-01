@@ -30,11 +30,9 @@ export default ({
   responsive,
   location,
   directionText,
-  showTechUIButton,
   onLangChange,
   onDirectionChange,
 }: NavigationProps) => {
-  const [isGitee, setIsGitee] = React.useState(false);
   const menuMode = isMobile ? 'inline' : 'horizontal';
 
   const module = pathname.split('/').slice(0, -1).join('/');
@@ -72,7 +70,7 @@ export default ({
   }
 
   React.useEffect(() => {
-    setIsGitee(document.location.host.indexOf('gitee') !== -1);
+
   }, []);
 
   return (
@@ -82,11 +80,11 @@ export default ({
       selectedKeys={[activeMenuItem]}
       id="nav"
     >
-      <Menu.Item key="docs/spec">
-        <Link to={utils.getLocalizedPathname('/docs/spec/introduce', isZhCN, location.query)}>
-          <FormattedMessage id="app.header.menu.spec" />
-        </Link>
-      </Menu.Item>
+      {/*<Menu.Item key="docs/spec">*/}
+        {/*<Link to={utils.getLocalizedPathname('/docs/spec/introduce', isZhCN, location.query)}>*/}
+          {/*<FormattedMessage id="app.header.menu.spec" />*/}
+        {/*</Link>*/}
+      {/*</Menu.Item>*/}
       <Menu.Item key="docs/react">
         <Link to={utils.getLocalizedPathname('/docs/react/introduce', isZhCN, location.query)}>
           <FormattedMessage id="app.header.menu.documentation" />
@@ -97,23 +95,23 @@ export default ({
           <FormattedMessage id="app.header.menu.components" />
         </Link>
       </Menu.Item>
-      <Menu.Item key="docs/resources">
-        <Link to={utils.getLocalizedPathname('/docs/resources', isZhCN, location.query)}>
-          <FormattedMessage id="app.header.menu.resource" />
-        </Link>
-      </Menu.Item>
-      {showTechUIButton && (
-        <Menu.Item key="tech-ui">
-          <a href="https://techui.alipay.com" target="__blank" rel="noopener noreferrer">
-            TechUI
-          </a>
-        </Menu.Item>
-      )}
-      {isZhCN && !isGitee && (
-        <Menu.Item key="mirror">
-          <a href="https://ant-design.gitee.io">国内镜像</a>
-        </Menu.Item>
-      )}
+      {/*<Menu.Item key="docs/resources">*/}
+        {/*<Link to={utils.getLocalizedPathname('/docs/resources', isZhCN, location.query)}>*/}
+          {/*<FormattedMessage id="app.header.menu.resource" />*/}
+        {/*</Link>*/}
+      {/*</Menu.Item>*/}
+      {/*{showTechUIButton && (*/}
+        {/*<Menu.Item key="tech-ui">*/}
+          {/*<a href="https://techui.alipay.com" target="__blank" rel="noopener noreferrer">*/}
+            {/*TechUI*/}
+          {/*</a>*/}
+        {/*</Menu.Item>*/}
+      {/*)}*/}
+      {/*{isZhCN && !isGitee && (*/}
+        {/*<Menu.Item key="mirror">*/}
+          {/*<a href="https://ant-design.gitee.io">国内镜像</a>*/}
+        {/*</Menu.Item>*/}
+      {/*)}*/}
       {additional}
     </Menu>
   );

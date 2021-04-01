@@ -1,16 +1,13 @@
 import React from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import { UnorderedListOutlined } from '@ant-design/icons';
-import { Select, Row, Col, Popover, Button } from 'antd';
+import { Select, Row, Col, Popover } from 'antd';
 
 import * as utils from '../../utils';
 import { version as antdVersion } from '../../../../../package.json';
 import Logo from './Logo';
-import SearchBox from './SearchBox';
-import More from './More';
 import Navigation from './Navigation';
-import Github from './Github';
 import SiteContext from '../SiteContext';
 import { ping } from '../../utils';
 
@@ -20,33 +17,6 @@ const RESPONSIVE_XS = 1120;
 const RESPONSIVE_SM = 1200;
 
 const { Option } = Select;
-
-let docsearch: any;
-if (typeof window !== 'undefined') {
-  // eslint-disable-next-line global-require
-  docsearch = require('docsearch.js');
-}
-
-function initDocSearch(locale: string) {
-  if (!docsearch) {
-    return;
-  }
-  const lang = locale === 'zh-CN' ? 'cn' : 'en';
-  docsearch({
-    apiKey: '60ac2c1a7d26ab713757e4a081e133d0',
-    indexName: 'ant_design',
-    inputSelector: '#search-box input',
-    algoliaOptions: { facetFilters: [`tags:${lang}`] },
-    transformData(hits: { url: string }[]) {
-      hits.forEach(hit => {
-        hit.url = hit.url.replace('ant.design', window.location.host);
-        hit.url = hit.url.replace('https:', window.location.protocol);
-      });
-      return hits;
-    },
-    debug: false, // Set debug to true if you want to inspect the dropdown
-  });
-}
 
 export interface HeaderProps {
   intl: {
@@ -78,9 +48,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   };
 
   componentDidMount() {
-    const { intl, router } = this.props;
+    const { router } = this.props;
     router.listen(this.handleHideMenu);
-    initDocSearch(intl.locale);
 
     window.addEventListener('resize', this.onWindowResize);
     this.onWindowResize();
@@ -193,7 +162,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     return (
       <SiteContext.Consumer>
         {({ isMobile }) => {
-          const { menuVisible, windowWidth, searching, showTechUIButton } = this.state;
+          const { menuVisible, windowWidth, showTechUIButton } = this.state;
           const { direction } = this.context;
           const {
             location,
@@ -230,15 +199,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             isRTL,
           };
 
-          const searchBox = (
-            <SearchBox
-              key="search"
-              {...sharedProps}
-              responsive={responsive}
-              onTriggerFocus={this.onTriggerSearching}
-            />
-          );
-
           const navigationNode = (
             <Navigation
               key="nav"
@@ -266,32 +226,14 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               getPopupContainer={trigger => trigger.parentNode}
             >
               {versionOptions}
-            </Select>,
-            <Button
-              size="small"
-              onClick={this.onLangChange}
-              className="header-button header-lang-button"
-              key="lang-button"
-            >
-              <FormattedMessage id="app.header.lang" />
-            </Button>,
-            <Button
-              size="small"
-              onClick={this.onDirectionChange}
-              className="header-button header-direction-button"
-              key="direction-button"
-            >
-              {this.getNextDirectionText()}
-            </Button>,
-            <More key="more" {...sharedProps} />,
-            <Github key="github" responsive={responsive} />,
+            </Select>
           ];
 
-          if (windowWidth < RESPONSIVE_XS) {
-            menu = searching ? [] : [navigationNode];
-          } else if (windowWidth < RESPONSIVE_SM) {
-            menu = searching ? [] : menu;
-          }
+          // if (windowWidth < RESPONSIVE_XS) {
+          //   menu = searching ? [] : [navigationNode];
+          // } else if (windowWidth < RESPONSIVE_SM) {
+          //   menu = searching ? [] : menu;
+          // }
 
           const colProps = isHome
             ? [{ flex: 'none' }, { flex: 'auto' }]
@@ -334,7 +276,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                   <Logo {...sharedProps} location={location} />
                 </Col>
                 <Col {...colProps[1]} className="menu-row">
-                  {searchBox}
+                  {/*{searchBox}*/}
                   {!isMobile && menu}
                 </Col>
               </Row>
