@@ -80,11 +80,6 @@ const Banner = (props: { location: any }) => {
                 <FormattedMessage id="app.home.getting-started" />
               </Button>
             </Link>
-            <Link to={getLocalizedPathname('/docs/spec/introduce', isZhCN, location.query)}>
-              <Button shape="round" ghost>
-                <FormattedMessage id="app.home.design-language" />
-              </Button>
-            </Link>
           </div>
         </div>
       </div>
